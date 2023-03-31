@@ -1,0 +1,104 @@
+name: Build and Deploy Frontend
+on:
+  push:
+    branches:
+      - dev
+      - main
+
+jobs:
+  build:
+    name: Build Frontend
+    runs-on: ubuntu-20.04
+    env:
+      REACT_APP_INFURA_KEY: ${{ secrets.REACT_APP_INFURA_KEY }}
+      REACT_APP_FORTMATIC_KEY: ${{ secrets.REACT_APP_FORTMATIC_KEY }}
+      REACT_APP_CHAINLINK_DATA_ETH_CONTRACT: ${{ secrets.REACT_APP_CHAINLINK_DATA_ETH_CONTRACT }}
+      REACT_APP_KALEIDO_CHAIN_ID: ${{ secrets.REACT_APP_KALEIDO_CHAIN_ID }}
+      REACT_APP_KALEIDO_RPC_URL: ${{ secrets.REACT_APP_KALEIDO_RPC_URL }}
+      REACT_APP_MAINNET_MULTICALL_ADDRESS: ${{ secrets.REACT_APP_MAINNET_MULTICALL_ADDRESS }}
+      REACT_APP_GOERLI_MULTICALL_ADDRESS: ${{ secrets.REACT_APP_GOERLI_MULTICALL_ADDRESS }}
+      REACT_APP_KALEIDO_MULTICALL_ADDRESS: ${{ secrets.REACT_APP_KALEIDO_MULTICALL_ADDRESS }}
+      REACT_APP_DEFAULT_NETWORK_MOBILE: ${{ secrets.REACT_APP_DEFAULT_NETWORK_MOBILE }}
+      REACT_APP_DEFAULT_NETWORK_DESKTOP: ${{ secrets.REACT_APP_DEFAULT_NETWORK_DESKTOP }}
+      REACT_APP_DISCORD_CLIENT_ID: ${{ secrets.REACT_APP_DISCORD_CLIENT_ID }}
+      REACT_APP_OSS_ASSETS_BUCKET: ${{ secrets.REACT_APP_OSS_ASSETS_BUCKET }}
+      REACT_APP_SWELL_SUBGRAPH_API: ${{ secrets.REACT_APP_SWELL_SUBGRAPH_API }}
+      REACT_APP_SWELL_SUBGRAPH_MAIN_API: ${{ secrets.REACT_APP_SWELL_SUBGRAPH_MAIN_API }}
+    steps:
+      - name: Clone Repo and Submodules
+        uses: actions/checkout@v3
+        with:
+          submodules: recursive
+      - name: Install Dependencies
+        run: yarn install
+      - name: Build Dev
+        if: ${{ github.ref_name == 'dev' }}
+        run: yarn build
+        env:
+          REACT_APP_PORTIS_ID: ${{ secrets.REACT_APP_PORTIS_ID_DEV }}
+          REACT_APP_SWELL_GRAPHQL_URI: ${{ secrets.REACT_APP_SWELL_GRAPHQL_URI_DEV }}
+          REACT_APP_SWELL_BACKEND_URI: ${{ secrets.REACT_APP_SWELL_BACKEND_URI_DEV }}
+          REACT_APP_BYPASS_POAP: ${{ secrets.REACT_APP_BYPASS_POAP_DEV }}
+          REACT_APP_DEFAULT_SWELL_NETWORK_NODE_OPERATOR_ID: ${{ secrets.REACT_APP_DEFAULT_SWELL_NETWORK_NODE_OPERATOR_ID_DEV }}
+          REACT_APP_MAINNET_SWNFT_ADDRESS: ${{ secrets.REACT_APP_MAINNET_SWNFT_ADDRESS_DEV }}
+          REACT_APP_GOERLI_SWNFT_ADDRESS: ${{ secrets.REACT_APP_GOERLI_SWNFT_ADDRESS_DEV }}
+          REACT_APP_KALEIDO_SWNFT_ADDRESS: ${{ secrets.REACT_APP_KALEIDO_SWNFT_ADDRESS_DEV }}
+          REACT_APP_MAINNET_SWETH_ADDRESS: ${{ secrets.REACT_APP_MAINNET_SWETH_ADDRESS_DEV }}
+          REACT_APP_GOERLI_SWETH_ADDRESS: ${{ secrets.REACT_APP_GOERLI_SWETH_ADDRESS_DEV }}
+          REACT_APP_KALEIDO_SWETH_ADDRESS: ${{ secrets.REACT_APP_KALEIDO_SWETH_ADDRESS_DEV }}
+          REACT_APP_MAINNET_POAP_ADDRESS: ${{ secrets.REACT_APP_MAINNET_POAP_ADDRESS_DEV }}
+          REACT_APP_GOERLI_POAP_ADDRESS: ${{ secrets.REACT_APP_GOERLI_POAP_ADDRESS_DEV }}
+          REACT_APP_KALEIDO_POAP_ADDRESS: ${{ secrets.REACT_APP_KALEIDO_POAP_ADDRESS_DEV }}
+          REACT_APP_COINBASE_MOBILE_UNIVERSAL_LINK: ${{ secrets.REACT_APP_COINBASE_MOBILE_UNIVERSAL_LINK_DEV }}
+      - name: Build Main
+        if: ${{ github.ref_name == 'main' }}
+        run: yarn build
+        env:
+          REACT_APP_PORTIS_ID: ${{ secrets.REACT_APP_PORTIS_ID_MAIN }}
+          REACT_APP_SWELL_GRAPHQL_URI: ${{ secrets.REACT_APP_SWELL_GRAPHQL_URI_MAIN }}
+          REACT_APP_SWELL_BACKEND_URI: ${{ secrets.REACT_APP_SWELL_BACKEND_URI_MAIN }}
+          REACT_APP_BYPASS_POAP: ${{ secrets.REACT_APP_BYPASS_POAP_MAIN }}
+          REACT_APP_DEFAULT_SWELL_NETWORK_NODE_OPERATOR_ID: ${{ secrets.REACT_APP_DEFAULT_SWELL_NETWORK_NODE_OPERATOR_ID_MAIN }}
+          REACT_APP_MAINNET_SWNFT_ADDRESS: ${{ secrets.REACT_APP_MAINNET_SWNFT_ADDRESS_MAIN }}
+          REACT_APP_GOERLI_SWNFT_ADDRESS: ${{ secrets.REACT_APP_GOERLI_SWNFT_ADDRESS_MAIN }}
+          REACT_APP_KALEIDO_SWNFT_ADDRESS: ${{ secrets.REACT_APP_KALEIDO_SWNFT_ADDRESS_MAIN }}
+          REACT_APP_MAINNET_SWETH_ADDRESS: ${{ secrets.REACT_APP_MAINNET_SWETH_ADDRESS_MAIN }}
+          REACT_APP_GOERLI_SWETH_ADDRESS: ${{ secrets.REACT_APP_GOERLI_SWETH_ADDRESS_MAIN }}
+          REACT_APP_KALEIDO_SWETH_ADDRESS: ${{ secrets.REACT_APP_KALEIDO_SWETH_ADDRESS_MAIN }}
+          REACT_APP_MAINNET_POAP_ADDRESS: ${{ secrets.REACT_APP_MAINNET_POAP_ADDRESS_MAIN }}
+          REACT_APP_GOERLI_POAP_ADDRESS: ${{ secrets.REACT_APP_GOERLI_POAP_ADDRESS_MAIN }}
+          REACT_APP_KALEIDO_POAP_ADDRESS: ${{ secrets.REACT_APP_KALEIDO_POAP_ADDRESS_MAIN }}
+          REACT_APP_COINBASE_MOBILE_UNIVERSAL_LINK: ${{ secrets.REACT_APP_COINBASE_MOBILE_UNIVERSAL_LINK_MAIN }}
+      - name: Upload Build Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: frontend-artifacts
+          path: build
+  deploy:
+    name: Deploy Frontend
+    needs: build
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Clone Repo and Submodules
+        uses: actions/checkout@v3
+        with:
+          submodules: recursive
+      - name: Download Frontend Artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: frontend-artifacts
+          path: build
+      - name: Deploy to Dev environment
+        uses: w9jds/firebase-action@master
+        if: ${{ github.ref_name == 'dev' }}
+        with:
+          args: deploy --only hosting:dev-swell-network-frontend
+        env:
+          GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
+      - name: Deploy to Main environment
+        uses: w9jds/firebase-action@master
+        if: ${{ github.ref_name == 'main' }}
+        with:
+          args: deploy --only hosting:swell-network-frontend
+        env:
+          GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}

@@ -1,0 +1,3 @@
+# Requires at least one commit to pass semantic PR rules
+# Other rules are defauls as per https://github.com/Ezard/semantic-prs
+anyCommit: true

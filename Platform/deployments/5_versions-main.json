@@ -1,0 +1,32 @@
+{
+  "v1.7.0": {
+    "contracts": {
+      "swDAO": "0x37e487b233b440673a75Da0d5e28d7fA16F41c67",
+      "nftDescriptorLibrary": "0x44193eDaC2158b6d7D67F311C6df7421e12f4Fce",
+      "swNFT": "0x636C2eB4608a79DAAA1E8DF37A83f3a12F136041",
+      "swETH": "0xF5fECA644F7eFC9835e64C5eFFe1A8167d5776F2",
+      "strategy": "0x0B07aAE8db2eA58a5f1aeD0E1D2be7b1a7e7eB31"
+    },
+    "network": {
+      "name": "goerli",
+      "chainId": 5,
+      "ensAddress": "0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e"
+    },
+    "date": "Thu, 19 May 2022 23:30:14 GMT"
+  },
+  "v1.8.0": {
+    "contracts": {
+      "SWELL": "0xeD2b0E694d63F350cC124c8292ED6482b34B92DF",
+      "nftDescriptorLibrary": "0x2Ef8B1d7b7Da8D3e0Bbd48B6Bb90f8A78bF0dF04",
+      "swNFT": "0x23e33FC2704Bb332C0410B006e8016E7B99CF70A",
+      "swETH": "0x30ebB58888E94095939e220CAb04C59Ea65ded2E",
+      "strategy": "0x4142966b5C7Cc59ed30CDAe1641C43c0897A9d3a"
+    },
+    "network": {
+      "name": "goerli",
+      "chainId": 5,
+      "ensAddress": "0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e"
+    },
+    "date": "Sat, 11 Jun 2022 16:17:09 GMT"
+  }
+}

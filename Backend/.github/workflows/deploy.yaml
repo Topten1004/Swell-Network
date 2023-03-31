@@ -1,0 +1,50 @@
+name: Deploy BE
+on:
+  push:
+    branches:
+      - dev
+      - main
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy dev
+        uses: fifsky/ssh-action@master
+        if: ${{ github.ref_name == 'dev' }}
+        with:
+          command: |
+            cd /mnt/backend
+            git checkout .
+            git pull --recurse-submodules
+            docker run -v $(pwd):/usr/src/app -w /usr/src/app node:16 npm install
+            npm run migrate:deploy:kaleido
+            npm run migrate:deploy:goerli
+            npm run migrate:deploy:main
+            npm run generate
+            docker restart mnt-swellnetwork-1
+            exit 0
+          host: ${{ secrets.REMOTE_HOST }}
+          user: ${{ secrets.REMOTE_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          args: "-tt -vvv"
+      - name: Deploy main
+        uses: fifsky/ssh-action@master
+        if: ${{ github.ref_name == 'main' }}
+        with:
+          command: |
+            cd /mnt/main-backend
+            git checkout .
+            git pull --recurse-submodules
+            docker run -v $(pwd):/usr/src/app -w /usr/src/app node:16 npm install
+            npm run migrate:deploy:kaleido
+            npm run migrate:deploy:goerli
+            npm run migrate:deploy:main
+            npm run generate
+            docker restart mnt-main-swellnetwork-1
+            exit 0
+          host: ${{ secrets.REMOTE_HOST_PROD }}
+          user: ${{ secrets.REMOTE_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY_PROD }}
+          args: "-tt -vvv"

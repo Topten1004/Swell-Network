@@ -1,0 +1,28 @@
+image: node:lts-alpine
+
+stages:
+  - deploy
+
+Deploy Dev:
+  stage: deploy
+  before_script:
+    - apk add --no-cache git
+    - npm i -g firebase-tools
+    - yarn --network-timeout 100000
+  script:
+    - yarn build
+    - firebase deploy --only hosting:dev-swell-network-interface
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "dev"'
+
+Deploy Staging:
+  stage: deploy
+  before_script:
+    - apk add --no-cache git
+    - npm i -g firebase-tools
+    - yarn --network-timeout 100000
+  script:
+    - yarn build
+    - firebase deploy --only hosting:swell-network-interface
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "staging"'

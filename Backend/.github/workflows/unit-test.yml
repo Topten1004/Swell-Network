@@ -1,0 +1,98 @@
+# This is a basic workflow to help you get started with Actions
+
+name: "Unit Test"
+
+# Triggers the workflow on push or pull request events
+on: push
+
+env:
+  ## Sets environment variable
+  DATABASE_URL: postgres://postgres:postgres@localhost:5432/TEST-swellnetwork
+  DB_ROOT_PASSWORD: ${{ secrets.DB_ROOT_PASSWORD }}
+  DB_HOSTNAME: localhost:5432
+  DB_USERNAME: postgres
+  DB_PASSWORD: postgres
+  DB_NAME: swellnetwork
+  CURRENT_NETWORK: ${{ secrets.CURRENT_NETWORK }}
+  CHAIN_ID: ${{ secrets.CHAIN_ID }}
+  ALCHEMY_API_KEY: ${{ secrets.ALCHEMY_API_KEY }}
+  INFURA_API_KEY: ${{ secrets.INFURA_API_KEY }}
+  RPC_URL: ${{ secrets.RPC_URL }}
+  KALEIDO_NODE_URL: ${{ secrets.KALEIDO_NODE_URL }}
+  KALEIDO_NODE_USER: ${{ secrets.KALEIDO_NODE_USER }}
+  KALEIDO_NODE_PASSWORD: ${{ secrets.KALEIDO_NODE_PASSWORD }}
+  KALEIDO_SWNFT_ADDRESS: ${{ secrets.KALEIDO_SWNFT_ADDRESS }}
+  KALEIDO_MULTISENDER_ADDRESS: ${{ secrets.KALEIDO_MULTISENDER_ADDRESS }}
+  KALEIDO_DISPATCH_ETH_AMOUNT_PER_WALLET: ${{ secrets.KALEIDO_DISPATCH_ETH_AMOUNT_PER_WALLET }}
+  SWNFT_ADDRESS: ${{ secrets.SWNFT_ADDRESS }}
+  BOT_PRIVATE_KEY: ${{ secrets.BOT_PRIVATE_KEY }}
+  PORT: ${{ secrets.PORT }}
+  DEFAULT_SWELL_NETWORK_NODE_OPERATOR_ID: ${{ secrets.DEFAULT_SWELL_NETWORK_NODE_OPERATOR_ID }}
+  CLIENT_ID: ${{ secrets.CLIENT_ID }}
+  CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
+  DISCORD_CLIENT_ID: ${{ secrets.DISCORD_CLIENT_ID }}
+  DISCORD_CLIENT_SECRET: ${{ secrets.DISCORD_CLIENT_SECRET }}
+  DISCORD_API_REDIRECT_URL: ${{ secrets.DISCORD_API_REDIRECT_URL }}
+  DISCORD_API_URL: ${{ secrets.DISCORD_API_URL }}
+  GOERLI_FORK_VERSION: ${{ secrets.GOERLI_FORK_VERSION }}
+  MAIN_FORK_VERSION: ${{ secrets.MAIN_FORK_VERSION }}
+  OSS_ACCESS_KEY_ID: ${{ secrets.OSS_ACCESS_KEY_ID }}
+  OSS_ACCESS_KEY_SECRET: ${{ secrets.OSS_ACCESS_KEY_SECRET }}
+  OSS_ASSETS_BUCKET: ${{ secrets.OSS_ASSETS_BUCKET }}
+  OSS_ENDPOINT: ${{ secrets.OSS_ENDPOINT }}
+  GOERLI_NODE_URL: ${{ secrets.GOERLI_NODE_URL }}
+  GOERLI_DISPATCH_ETH_AMOUNT_PER_WALLET: ${{ secrets.GOERLI_DISPATCH_ETH_AMOUNT_PER_WALLET }}
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "test"
+  test:
+    name: "Run Unit Test"
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Service containers to run with `runner-job`
+    services:
+      # Label used to access the service container
+      postgres:
+        # Docker Hub image
+        image: postgres
+        # Provide the password for postgres
+        env:
+          POSTGRES_PASSWORD: postgres
+        # Set health checks to wait until postgres has started
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          # Maps tcp port 5432 on service container to the host
+          - 5432:5432
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: Check out repository and submodules
+        uses: actions/checkout@v2
+        with:
+          submodules: recursive
+      - name: Set up node
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16
+      - name: Node module cache
+        uses: actions/cache@v2
+        id: node-cache
+        with:
+          path: "**/node_modules"
+          key: npm-v2-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: npm-v2-
+      - name: Install dependencies
+        run: npm ci
+        if: steps.node-cache.outputs.cache-hit != 'true'
+      - name: Run migreate:reset:test
+        run: npm run migrate:reset:test
+      - name: Run test
+        run: npm run test
+        timeout-minutes: 30

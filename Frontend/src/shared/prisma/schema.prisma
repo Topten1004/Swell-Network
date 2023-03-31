@@ -1,0 +1,118 @@
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           Int           @id @default(autoincrement())
+  createdAt    DateTime      @default(now())
+  wallet       String        @unique @db.VarChar(255)
+  role         Role          @default(USER)
+  updatedAt    DateTime      @updatedAt
+  referralCode String?       @unique @db.VarChar(255)
+  apiKey       String?       @unique @db.VarChar(255)
+  nodeOperator NodeOperator?
+  faucets      Faucet[]
+  apiStats     ApiStats[]
+}
+
+model Faucet {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  wallet    String   @db.VarChar(255)
+  userId    Int
+  discordId String   @db.VarChar(255)
+  txHash    String?  @db.VarChar(255)
+  referee   User     @relation(fields: [userId], references: [id])
+}
+
+model NodeOperator {
+  id                    Int         @id @default(autoincrement())
+  createdAt             DateTime    @default(now())
+  updatedAt             DateTime    @updatedAt
+  status                Boolean     @default(true)
+  verified              Boolean     @default(false)
+  userId                Int         @unique
+  category              Category    @default(INDIVIDUAL)
+  description           String
+  email                 String?     @db.VarChar(255)
+  location              String      @db.VarChar(255)
+  name                  String      @db.VarChar(255)
+  nodes                 Int
+  social                String?     @db.VarChar(255)
+  website               String?     @db.VarChar(255)
+  yearsOfExperience     Int
+  rate                  Int         @default(0)
+  cpu                   Int
+  network               Int
+  ram                   Int
+  storage               Int
+  logo                  String?     @db.VarChar(255)
+  consensusLayerClients String?     @db.VarChar(255)
+  executionLayerClients String?     @db.VarChar(255)
+  user                  User        @relation(fields: [userId], references: [id])
+  validators            Validator[]
+}
+
+model Validator {
+  id                           Int           @id @default(autoincrement())
+  createdAt                    DateTime      @default(now())
+  updatedAt                    DateTime      @updatedAt
+  status                       Boolean       @default(true)
+  pubKey                       String        @unique @db.VarChar(255)
+  nodeOperatorId               Int
+  activation_eligibility_epoch String?       @db.VarChar(255)
+  activation_epoch             String?       @db.VarChar(255)
+  balance                      String?       @db.VarChar(255)
+  effective_balance            String?       @db.VarChar(255)
+  exit_epoch                   String?       @db.VarChar(255)
+  index                        Int?
+  slashed                      Boolean?
+  state                        String?       @db.VarChar(255)
+  withdrawable_epoch           String?       @db.VarChar(255)
+  withdrawal_credentials       String?       @db.VarChar(255)
+  nodeOperator                 NodeOperator  @relation(fields: [nodeOperatorId], references: [id])
+  depositDatas                 DepositData[]
+  depositBalance               String?       @db.VarChar(255)
+}
+
+model DepositData {
+  id              Int       @id @default(autoincrement())
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  amount          String    @db.VarChar(255)
+  signature       String    @db.VarChar(255)
+  depositDataRoot String    @db.VarChar(255)
+  validatorId     Int
+  validator       Validator @relation(fields: [validatorId], references: [id])
+
+  @@unique([validatorId, amount], name: "validatorAmount")
+}
+
+model ApiStats {
+  id           Int           @id @default(autoincrement())
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  url          String        @db.VarChar(255)
+  user         User          @relation(fields: [userApiKey], references: [apiKey])
+  totalUsed    Int
+  userApiKey   String        @db.VarChar(255)
+
+  @@unique([url, userApiKey], name: "userApiStats")
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+enum Category {
+  INDIVIDUAL
+  INSTITUTIONAL
+}

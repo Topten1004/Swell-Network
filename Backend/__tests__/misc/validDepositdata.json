@@ -1,0 +1,12 @@
+{
+  "name": "Deposit for wallet/account1",
+  "account": "wallet/account1",
+  "pubkey": "0x8e1d21c1e453436b107bbaf2e4d38350da87034e06a1c4931f234dd707ab71b1d1189e009ebd7f33c8d69f4914922dc9",
+  "withdrawal_credentials": "0x0100000000000000000000000be0fe93885bdc2c8459f04edc0df2e285b8d6db",
+  "signature": "0x88e683dcbce79f13c39456fedb166a6b7c6e8b348a76a3e706d1f3c5ee9fa896e69494386253b68925b3ccf796dd7e7e12c5d83fa1bfd64c4f870eec4f6f8e245b4237b7e63a62914e4c7470581c1ad1311ef60acf2e71d2edc5552861098df6",
+  "amount": 1000000000000000000,
+  "deposit_data_root": "0x8906cea3427fb10639419318d4901b507af9ab74d689140b3c432f0974dd6c21",
+  "deposit_message_root": "0x89bbf641e373b7d917837d45ea2aabf63667d2fc2dcc49421ff2bf32eb18cc7b",
+  "fork_version": "0x00000000",
+  "version": 3
+}

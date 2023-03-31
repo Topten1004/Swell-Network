@@ -1,0 +1,120 @@
+{
+  "v1.0.0": {
+    "contracts": {
+      "swell": "0xb7F7b64eeA324994A53B563A8eBc9B0671A83264",
+      "swNFT": "0x6f6607563A018CD5068aEa3d5623b7ecAfFD0c47",
+      "swETH": "0x3029480EC807130408e3CFdf63E255Bc3FA7cbED",
+      "strategy": "0x877E1ACd86a19dF969E51e375A17dcBe8271d7ad"
+    },
+    "network": {
+      "name": "goerli",
+      "chainId": 5,
+      "ensAddress": "0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e"
+    },
+    "date": "Thu, 24 Feb 2022 05:13:57 GMT"
+  },
+  "v1.2.0": {
+    "contracts": {
+      "swell": "0x39c235F4307A997Aef89fEdC81062DA73BFa82E1",
+      "swNFT": "0x304c9dEb9Aa63fdD4232EeA9661c466B40301621",
+      "swETH": "0x3ff82BDaF3bfB41b8e38A876d0913513947c57B6",
+      "strategy": "0xc12c5098b490c84E44B3c28ccCa50B42fBE361cA"
+    },
+    "network": {
+      "name": "goerli",
+      "chainId": 5,
+      "ensAddress": "0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e"
+    },
+    "date": "Wed, 02 Mar 2022 11:29:09 GMT"
+  },
+  "v1.2.2": {
+    "contracts": {
+      "swell": "0xe86C95a703EFB925c6C8a7bC3AFec47dd5dcdDAa",
+      "nftDescriptorLibrary": "0x751a15890C11feA088a4FAd65E5128589C57172F",
+      "swNFT": "0xe59aC2C5Ae8462554308c578aE4bc8e4098d0414",
+      "swETH": "0xe438a1ad5C5f29B6346e92eefdEAb8B4A1a8B3Cf",
+      "strategy": "0x76201e734111c2d540e0d36DBB4Fc9814fdfEE19"
+    },
+    "network": {
+      "name": "goerli",
+      "chainId": 5,
+      "ensAddress": "0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e"
+    },
+    "date": "Tue, 15 Mar 2022 05:55:44 GMT"
+  },
+  "v1.3.0": {
+    "contracts": {
+      "swell": "0xe86C95a703EFB925c6C8a7bC3AFec47dd5dcdDAa",
+      "nftDescriptorLibrary": "0x751a15890C11feA088a4FAd65E5128589C57172F",
+      "swNFT": "0xe59aC2C5Ae8462554308c578aE4bc8e4098d0414",
+      "swETH": "0xe438a1ad5C5f29B6346e92eefdEAb8B4A1a8B3Cf",
+      "strategy": "0x1d025E5675dae21983226Ec3AAA2dbbb243b9E4A"
+    },
+    "network": {
+      "name": "goerli",
+      "chainId": 5,
+      "ensAddress": "0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e"
+    },
+    "date": "Thu, 24 Mar 2022 04:00:25 GMT"
+  },
+  "v1.4.0": {
+    "contracts": {
+      "swell": "0xe86C95a703EFB925c6C8a7bC3AFec47dd5dcdDAa",
+      "nftDescriptorLibrary": "0x751a15890C11feA088a4FAd65E5128589C57172F",
+      "swNFT": "0xe59aC2C5Ae8462554308c578aE4bc8e4098d0414",
+      "swETH": "0xe438a1ad5C5f29B6346e92eefdEAb8B4A1a8B3Cf",
+      "strategy": "0x1d025E5675dae21983226Ec3AAA2dbbb243b9E4A"
+    },
+    "network": {
+      "name": "goerli",
+      "chainId": 5,
+      "ensAddress": "0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e"
+    },
+    "date": "Tue, 12 Apr 2022 10:44:44 GMT"
+  },
+  "v1.7.0": {
+    "contracts": {
+      "swell": "0xe86C95a703EFB925c6C8a7bC3AFec47dd5dcdDAa",
+      "nftDescriptorLibrary": "0x751a15890C11feA088a4FAd65E5128589C57172F",
+      "swNFT": "0xe59aC2C5Ae8462554308c578aE4bc8e4098d0414",
+      "swETH": "0xe438a1ad5C5f29B6346e92eefdEAb8B4A1a8B3Cf",
+      "strategy": "0x1d025E5675dae21983226Ec3AAA2dbbb243b9E4A"
+    },
+    "network": {
+      "name": "goerli",
+      "chainId": 5,
+      "ensAddress": "0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e"
+    },
+    "date": "Thu, 19 May 2022 02:04:02 GMT"
+  },
+  "v1.8.0": {
+    "contracts": {
+      "SWELL": "0x5D8FfE8C9621f3E1B589feDaE22cF8A4DBF83F7a",
+      "nftDescriptorLibrary": "0x7312c75b7163E8F7527764818636F88A713e82cd",
+      "swNFT": "0xF0aA6398B9f48E264174FAd36777DD8cD3993ff4",
+      "swETH": "0xADc3B2F1aA651Ab10bd40c822aFc30F478fF54A8",
+      "strategy": "0xE748985Dd6193d854650044ba24365DF907BcFa1"
+    },
+    "network": {
+      "name": "goerli",
+      "chainId": 5,
+      "ensAddress": "0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e"
+    },
+    "date": "Tue, 28 Jun 2022 15:54:08 GMT"
+  },
+  "v1.9.0": {
+    "contracts": {
+      "SWELL": "0x5D8FfE8C9621f3E1B589feDaE22cF8A4DBF83F7a",
+      "nftDescriptorLibrary": "0x7312c75b7163E8F7527764818636F88A713e82cd",
+      "swNFT": "0xF0aA6398B9f48E264174FAd36777DD8cD3993ff4",
+      "swETH": "0xADc3B2F1aA651Ab10bd40c822aFc30F478fF54A8",
+      "strategy": "0xE748985Dd6193d854650044ba24365DF907BcFa1"
+    },
+    "network": {
+      "name": "goerli",
+      "chainId": 5,
+      "ensAddress": "0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e"
+    },
+    "date": "Fri, 15 Jul 2022 04:52:36 GMT"
+  }
+}

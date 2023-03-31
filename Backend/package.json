@@ -1,0 +1,172 @@
+{
+  "name": "backend",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "dotenv -e .env ts-node ./bin/www.ts",
+    "migrate:deploy": "dotenv -e .env.local -- npx prisma migrate deploy",
+    "migrate:dev": "dotenv -e .env.local -- npx prisma migrate dev",
+    "migrate:reset": "dotenv -e .env.local -- npx prisma migrate reset",
+    "migrate:reset:test": "dotenv -e .env.local.test -- npx prisma migrate reset --force",
+    "migrate:deploy:kaleido": "dotenv -e .env.local.kaleido -- npx prisma migrate deploy",
+    "migrate:dev:kaleido": "dotenv -e .env.local.kaleido -- npx prisma migrate dev",
+    "migrate:reset:kaleido": "dotenv -e .env.local.kaleido -- npx prisma migrate reset",
+    "migrate:deploy:goerli": "dotenv -e .env.local.goerli -- npx prisma migrate deploy",
+    "migrate:dev:goerli": "dotenv -e .env.local.goerli -- npx prisma migrate dev",
+    "migrate:reset:goerli": "dotenv -e .env.local.goerli -- npx prisma migrate reset",
+    "createDepositDatas": "dotenv -e .env.local -- ts-node bin/main.ts",
+    "createDepositDatas:dev": "dotenv -e .env.dev -- ts-node bin/main.ts",
+    "migrate:deploy:main": "dotenv -e .env.local.main -- npx prisma migrate deploy",
+    "migrate:dev:main": "dotenv -e .env.local.main -- npx prisma migrate dev",
+    "migrate:reset:main": "dotenv -e .env.local.main -- npx prisma migrate reset",
+    "generate": "npx prisma generate",
+    "prepare": "husky install",
+    "test": "jest --maxWorkers=1 --coverage=true"
+  },
+  "dependencies": {
+    "@apollo/client": "^3.6.9",
+    "@prisma/client": "^3.10.0",
+    "@semantic-release/changelog": "^6.0.1",
+    "@semantic-release/commit-analyzer": "^9.0.2",
+    "@semantic-release/github": "^8.0.4",
+    "@semantic-release/release-notes-generator": "^10.0.3",
+    "@types/cookie-parser": "^1.4.3",
+    "@types/debug": "^4.1.7",
+    "@types/graphql-upload": "^8.0.11",
+    "@types/memory-cache": "^0.2.2",
+    "@types/morgan": "^1.9.3",
+    "@types/util.promisify": "^1.0.4",
+    "@types/validator": "^13.7.5",
+    "@types/watch": "^1.0.3",
+    "@typescript-eslint/eslint-plugin": "^5.33.1",
+    "@typescript-eslint/parser": "^5.33.1",
+    "ali-oss": "^6.17.1",
+    "apollo-server-core": "^3.10.1",
+    "apollo-server-express": "^3.6.4",
+    "axios": "^0.26.1",
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "eslint": "^8.16.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-jest": "^26.5.3",
+    "eslint-plugin-prettier": "^4.0.0",
+    "ethereumjs-util": "^7.1.4",
+    "ethers": "^5.6.2",
+    "express": "^4.17.3",
+    "express-graphql": "^0.12.0",
+    "generate-api-key": "^1.0.1",
+    "graphql": "^15.8.0",
+    "graphql-request": "^4.2.0",
+    "graphql-scalars": "^1.15.0",
+    "graphql-tag": "^2.12.6",
+    "graphql-upload": "^13.0.0",
+    "http-errors": "~1.6.3",
+    "husky": "^7.0.4",
+    "jest": "^28.1.0",
+    "jest-config": "^28.1.2",
+    "lint-staged": "^12.3.1",
+    "memory-cache": "^0.2.0",
+    "morgan": "~1.9.1",
+    "nexus": "^1.3.0",
+    "prettier": "^2.5.1",
+    "prettier-eslint": "^15.0.1",
+    "pug": "3.0.1",
+    "semantic-release": "^19.0.3",
+    "validator": "^13.7.0"
+  },
+  "description": "NodeJS + Express API",
+  "main": "app.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SwellNetwork/backend.git"
+  },
+  "author": "SwellNetwork",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SwellNetwork/backend/issues"
+  },
+  "homepage": "https://github.com/SwellNetwork/backend#readme",
+  "devDependencies": {
+    "@types/ali-oss": "^6.16.4",
+    "@types/ethereumjs-util": "^6.1.0",
+    "@types/express": "^4.17.13",
+    "@types/jest": "^28.1.7",
+    "@types/node": "^18.7.5",
+    "dotenv-cli": "^5.1.0",
+    "eslint-plugin-import-helpers": "^1.2.1",
+    "prisma": "^3.10.0",
+    "ts-jest": "^28.0.8",
+    "ts-node": "^10.9.1",
+    "types-ethereumjs-util": "^0.0.8",
+    "typescript": "^4.7.4"
+  },
+  "lint-staged": {
+    "*.ts": [
+      "eslint --cache --fix",
+      "prettier --write **/*.ts"
+    ]
+  },
+  "eslintConfig": {
+    "extends": [
+      "eslint:recommended",
+      "prettier",
+      "plugin:@typescript-eslint/eslint-recommended",
+      "plugin:@typescript-eslint/recommended"
+    ],
+    "plugins": [
+      "jest",
+      "eslint-plugin-import-helpers"
+    ],
+    "env": {
+      "commonjs": true,
+      "es6": true,
+      "node": true,
+      "jest/globals": true
+    },
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+      "ecmaVersion": 2018,
+      "sourceType": "module"
+    },
+    "rules": {
+      "@typescript-eslint/no-var-requires": "off",
+      "@typescript-eslint/no-empty-interface": [
+        "error",
+        {
+          "allowSingleExtends": true
+        }
+      ],
+      "@typescript-eslint/no-explicit-any": "off",
+      "comma-dangle": "off",
+      "import-helpers/order-imports": [
+        "error",
+        {
+          "alphabetize": {
+            "ignoreCase": true,
+            "order": "asc"
+          },
+          "groups": [
+            "/^react/",
+            "module",
+            [
+              "parent",
+              "sibling",
+              "index"
+            ]
+          ],
+          "newlinesBetween": "always"
+        }
+      ],
+      "sort-imports": [
+        "error",
+        {
+          "ignoreCase": true,
+          "ignoreDeclarationSort": true
+        }
+      ]
+    }
+  },
+  "prisma": {
+    "schema": "shared/prisma/schema.prisma"
+  }
+}

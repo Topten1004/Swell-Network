@@ -1,0 +1,84 @@
+{
+  "name": "swv2",
+  "version": "1.0.0",
+  "description": "SwellNetwork V2",
+  "scripts": {
+    "fork:mainnet": "hardhat node --fork https://eth-mainnet.alchemyapi.io/v2/$(grep ALCHEMY_API_KEY .env | cut -d '=' -f2)",
+    "test:inte": "hardhat test test/inte/*",
+    "test:unit": "hardhat test test/unit/*",
+    "prepare": "husky install",
+    "coverage:inte": "hardhat coverage --testfiles 'test/inte/*.js' ",
+    "coverage:unit": "hardhat coverage --testfiles 'test/unit/*.js' --network localhost"
+  },
+  "keywords": [
+    "ETH2"
+  ],
+  "author": "SwellNetwork",
+  "license": "BUSL-1.1",
+  "bugs": {
+    "url": "https://github.com/SwellNetwork/v2-core/issues"
+  },
+  "homepage": "https://github.com/SwellNetwork/v2-coree",
+  "devDependencies": {
+    "@gnosis.pm/safe-core-sdk": "^2.2.0",
+    "@gnosis.pm/safe-ethers-lib": "^1.2.0",
+    "@gnosis.pm/safe-service-client": "^1.2.0",
+    "@nomiclabs/hardhat-ethers": "^2.0.4",
+    "@nomiclabs/hardhat-etherscan": "^3.1.0",
+    "@nomiclabs/hardhat-waffle": "^2.0.2",
+    "@openzeppelin/hardhat-upgrades": "^1.17.0",
+    "@semantic-release/changelog": "^6.0.1",
+    "@semantic-release/commit-analyzer": "^9.0.2",
+    "@semantic-release/github": "^8.0.2",
+    "@semantic-release/release-notes-generator": "^10.0.3",
+    "@uniswap/v3-core": "^1.0.1",
+    "@uniswap/v3-periphery": "^1.4.0",
+    "@uniswap/v3-sdk": "^3.8.2",
+    "chai": "^4.3.4",
+    "hardhat": "^2.8.3",
+    "hardhat-abi-exporter": "^2.8.0",
+    "hardhat-gas-reporter": "^1.0.7",
+    "husky": "^7.0.4",
+    "is-svg": "^4.3.2",
+    "lint-staged": "^12.3.1",
+    "prettier": "^2.6.2",
+    "semantic-release": "^19.0.3",
+    "solhint": "^3.3.6",
+    "solidity-coverage": "0.7.19"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "^4.4.2",
+    "@openzeppelin/contracts-upgradeable": "^4.4.2",
+    "base64-sol": "^1.1.0",
+    "cypress": "^9.3.1",
+    "dotenv": "^10.0.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "google-spreadsheet": "^3.0.14",
+    "hardhat-contract-sizer": "^2.6.1",
+    "prettier-eslint": "^15.0.1"
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint --cache --fix",
+      "prettier --write test/**/*.js"
+    ],
+    "*.sol": "solhint --fix contracts/**/*.sol"
+  },
+  "eslintConfig": {
+    "extends": [
+      "eslint:recommended",
+      "prettier"
+    ],
+    "env": {
+      "commonjs": true,
+      "es6": true,
+      "node": true,
+      "mocha": true
+    },
+    "parserOptions": {
+      "ecmaVersion": 2018,
+      "sourceType": "module"
+    }
+  }
+}
